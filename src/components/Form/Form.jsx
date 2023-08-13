@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addContacts } from 'redux/slice';
+import { addContact } from 'redux/store';
 const Form = function ({ addContact }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
+  const dispatch = useDispatch();
   const handleChange = evt => {
     if (evt.target.name === 'name') setName(evt.target.value);
     else setNumber(evt.target.value);
   };
+
   const handleSubmit = evt => {
     evt.preventDefault();
-
     addContact({ name, number });
+    // dispatch(addContact({ name, number }));
+    // dispatch(addContacts(10));
     setName('');
     setNumber('');
   };

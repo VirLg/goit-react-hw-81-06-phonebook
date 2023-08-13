@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import Contact from './Contact/Contact';
 import Filter from './Filter/Filter';
 import Form from './Form/Form';
+import { useDispatch } from 'react-redux';
 
+import { add } from 'redux/store';
 const App = function () {
   //*******************use */
   const [contacts, setContacts] = useState(
@@ -11,21 +13,29 @@ const App = function () {
   );
   const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    if (localStorage.contacts === []) setContacts([]);
+  // useEffect(() => {
+  //   if (localStorage.contacts === []) setContacts([]);
 
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   //*****************use */
+
+  const dispatch = useDispatch();
   const addContact = props => {
     const { name, number } = props;
     if (contacts) {
       const check = contacts.find(
         el => el.name.toLowerCase() === name.toLowerCase()
       );
-      if (check) return alert('NoNoNo');
+
+      if (check) {
+        return alert('NoNoNo');
+      }
+
       setContacts(prev => [{ name, number, id: nanoid() }, ...prev]);
+      dispatch(add(contacts));
+      // console.log('dispatch', dispatch());
     }
   };
   const filterContact = e => setFilter(e.target.value);

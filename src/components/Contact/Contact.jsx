@@ -5,11 +5,6 @@ import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/slice';
 
 const Contact = ({ props, deleteContact }) => {
-  const dispatch = useDispatch();
-  console.log('dispatch', dispatch);
-  const handleClick = () => {
-    return 5;
-  };
   return props.map(({ number, name, id }) => {
     return (
       <ContactsDiv key={id}>
@@ -31,9 +26,6 @@ const Contact = ({ props, deleteContact }) => {
         <Button type="button" onClick={() => deleteContact(id)}>
           Delete
         </Button>
-        <button type="button" onClick={() => dispatch(addContact())}>
-          Dispatch
-        </button>
       </ContactsDiv>
     );
   });
