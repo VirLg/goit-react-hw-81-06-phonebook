@@ -5,7 +5,7 @@ import Filter from './Filter/Filter';
 import Form from './Form/Form';
 import { useDispatch } from 'react-redux';
 
-import { add } from 'redux/store';
+import { add, remove } from 'redux/store';
 const App = function () {
   //*******************use */
   const [contacts, setContacts] = useState(
@@ -34,13 +34,16 @@ const App = function () {
       }
 
       setContacts(prev => [{ name, number, id: nanoid() }, ...prev]);
-      dispatch(add(contacts));
+      dispatch(add({ name, number, id: nanoid() }));
       // console.log('dispatch', dispatch());
     }
   };
   const filterContact = e => setFilter(e.target.value);
 
-  const deleteContact = id => setContacts(contacts.filter(el => el.id !== id));
+  const deleteContact = id => {
+    setContacts(contacts.filter(el => el.id !== id));
+    dispatch(remove(contacts.filter(el => el.id !== id)));
+  };
 
   const visible =
     contacts !== [] && contacts.filter(el => el.name.includes(filter));

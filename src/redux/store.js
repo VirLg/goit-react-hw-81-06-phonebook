@@ -8,9 +8,10 @@ import { contactSlice } from './slice';
 //   },
 // });
 export const add = createAction('contacts/add');
-
+export const remove = createAction('contacts/remove');
 const myReducer = createReducer([], {
   [add]: (state, action) => [...state, action.payload],
+  [remove]: state => [...state],
 });
 
 export const store = configureStore({
