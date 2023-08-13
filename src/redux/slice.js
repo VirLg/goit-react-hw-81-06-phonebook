@@ -6,6 +6,7 @@ export const contactSlice = createSlice({
   reducers: {
     add: (state, action) => [...state, action.payload],
     remove: (state, action) => [...action.payload],
+    filterSlice: (state, action) => [action.payload],
   },
 });
 export const { add, remove } = contactSlice.actions;

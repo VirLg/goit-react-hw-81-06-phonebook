@@ -3,8 +3,10 @@ import { nanoid } from 'nanoid';
 import Contact from './Contact/Contact';
 import Filter from './Filter/Filter';
 import Form from './Form/Form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { add, remove } from '../redux/slice';
+import { filterSlice } from '../redux/sliceFilter';
+import { SelectorContact } from 'redux/selector';
 
 // import { add, remove } from 'redux/store';
 const App = function () {
@@ -39,7 +41,34 @@ const App = function () {
       // console.log('dispatch', dispatch());
     }
   };
-  const filterContact = e => setFilter(e.target.value);
+
+  const selector = useSelector(state => state);
+  // console.log('selector', selector.contactsBook[0].name);
+  // if (selector.contactsBook !== []) {
+  // const [a, b] = selector;
+  // console.log('selector a', a);
+  // console.log('selector b', b);
+  // }
+  const filterContact = e => {
+    if (e.target.value) {
+      console.log('first', 'first');
+      const filterSelector = selector.contactsBook.filter(el =>
+        el.name.includes(e.target.value)
+      );
+      dispatch(filter(filterSelector));
+    } else {
+      console.log('second', 'second');
+      dispatch(filter(selector.contactsBook));
+    }
+    // );
+    // if (e.target.value) {
+
+    //   console.log('first', filterSelector);
+    // }
+    // dispatch(filterSlice(selector.contactsBook));
+    // console.log('aaa', selector.contactsBook);
+    // setFilter(e.target.value);
+  };
 
   const deleteContact = id => {
     setContacts(contacts.filter(el => el.id !== id));

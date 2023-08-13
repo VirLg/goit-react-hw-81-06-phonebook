@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Filter = ({ filterContact, stateFilter }) => {
+  const [change, setChange] = useState('');
+
   return (
     <label
       style={{
@@ -14,7 +16,6 @@ const Filter = ({ filterContact, stateFilter }) => {
       Search
       <input
         onChange={filterContact}
-        value={stateFilter}
         type="text"
         name="filter"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
