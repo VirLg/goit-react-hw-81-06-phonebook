@@ -4,8 +4,9 @@ import Contact from './Contact/Contact';
 import Filter from './Filter/Filter';
 import Form from './Form/Form';
 import { useDispatch } from 'react-redux';
+import { add, remove } from '../redux/slice';
 
-import { add, remove } from 'redux/store';
+// import { add, remove } from 'redux/store';
 const App = function () {
   //*******************use */
   const [contacts, setContacts] = useState(
