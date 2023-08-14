@@ -1,11 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ContactsDiv, Button } from './Contacts.styled';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/slice';
 
-const Contact = ({ props, deleteContact }) => {
-  return props.map(({ number, name, id }) => {
+const Contact = ({ deleteContact }) => {
+  const visFilter = useSelector(state => state.contactFilter[0]);
+  const visContact = useSelector(state => state.contactsBook);
+
+  let show = [];
+
+  if (!visFilter || visFilter.length === 0) {
+    show = visContact;
+  } else {
+    show = visFilter;
+  }
+  return show.map(({ number, name, id }) => {
     return (
       <ContactsDiv key={id}>
         <h2

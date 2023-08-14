@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Filter = ({ filterContact, stateFilter }) => {
-  const [change, setChange] = useState('');
-
+const Filter = ({ filterContact }) => {
   return (
     <label
       style={{
@@ -31,5 +28,4 @@ const Filter = ({ filterContact, stateFilter }) => {
 export default Filter;
 Filter.propTypes = {
   filterContact: PropTypes.func.isRequired,
-  stateFilter: PropTypes.string,
 };

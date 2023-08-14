@@ -4,38 +4,32 @@ import { useSelector } from 'react-redux';
 const ShowContactList = filterContact => {
   const visFilter = useSelector(state => state.contactFilter[0]);
   const visContact = useSelector(state => state.contactsBook);
-  console.log('filt', visFilter);
-  console.log('cont', visContact);
+
   let show = [];
 
-  if (!visFilter) {
+  if (!visFilter || visFilter.length === 0) {
     show = visContact;
   } else {
     show = visFilter;
   }
-  // show = vis.contactFilter === [] ? vis.contactFilter : vis.contactsBook;
-  console.log('show', show);
-  return (
-    // show === [] &&
-    show.map(({ name, id }) => {
-      return (
-        <div key={id}>
-          <div>{name}</div>
+
+  return show.map(({ name, number, id }) => {
+    return (
+      <div key={id}>
+        <div
+          style={{
+            display: 'flex',
+            height: '30px',
+            alignSelf: 'baseLine',
+          }}
+        >
+          <h2>{name}</h2>
+          <p>{number}</p>
+          <button type="button">Delete</button>
         </div>
-      );
-    })
-  );
+      </div>
+    );
+  });
 };
 
 export default ShowContactList;
-// (
-//   show === [] &&
-//   show.map[0](({ name, id }) => {
-//     console.log('name', name);
-//     return (
-//       <div key={id}>
-//         <div>{name}</div>
-//       </div>
-//     );
-//   })
-// );
