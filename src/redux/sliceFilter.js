@@ -7,5 +7,6 @@ export const sortSlice = createSlice({
     filter: (state, action) => [action.payload],
   },
 });
+
 export const { filter } = sortSlice.actions;
 export default sortSlice.reducer;

@@ -5,8 +5,10 @@ import Filter from './Filter/Filter';
 import Form from './Form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { add, remove } from '../redux/slice';
+import { filter } from '../redux/sliceFilter';
 import { filterSlice } from '../redux/sliceFilter';
 import { SelectorContact } from 'redux/selector';
+import ShowContactList from './showContactList/ShowContactList';
 
 // import { add, remove } from 'redux/store';
 const App = function () {
@@ -14,7 +16,8 @@ const App = function () {
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem('contacts')) ?? []
   );
-  const [filter, setFilter] = useState('');
+  const [showContact, useShowContact] = useState('');
+  // const [filter, setFilter] = useState('');
 
   // useEffect(() => {
   //   if (localStorage.contacts === []) setContacts([]);
@@ -31,14 +34,11 @@ const App = function () {
       const check = contacts.find(
         el => el.name.toLowerCase() === name.toLowerCase()
       );
-
       if (check) {
         return alert('NoNoNo');
       }
-
       setContacts(prev => [{ name, number, id: nanoid() }, ...prev]);
       dispatch(add({ name, number, id: nanoid() }));
-      // console.log('dispatch', dispatch());
     }
   };
 
@@ -51,15 +51,17 @@ const App = function () {
   // }
   const filterContact = e => {
     if (e.target.value) {
-      console.log('first', 'first');
       const filterSelector = selector.contactsBook.filter(el =>
         el.name.includes(e.target.value)
       );
+
       dispatch(filter(filterSelector));
+      return filterSelector;
     } else {
-      console.log('second', 'second');
-      dispatch(filter(selector.contactsBook));
+      dispatch(filter([]));
+      return selector.contactsBook;
     }
+    // ====================
     // );
     // if (e.target.value) {
 
@@ -74,6 +76,12 @@ const App = function () {
     setContacts(contacts.filter(el => el.id !== id));
     dispatch(remove(contacts.filter(el => el.id !== id)));
   };
+  // const show = () => {
+  //   console.log('selector', selector);
+  //   const all = selector.contactsBook.map(el => el.name);
+  //   console.log('all', all);
+  //   return all;
+  // };
 
   const visible =
     contacts !== [] && contacts.filter(el => el.name.includes(filter));
@@ -89,8 +97,10 @@ const App = function () {
       }}
     >
       <Form addContact={addContact} />
-      <Filter filterContact={filterContact} stateFilter={filter} />
-      <Contact props={visible} deleteContact={deleteContact} />
+      <Filter filterContact={filterContact} />
+      {/* <Filter filterContact={filterContact} stateFilter={filter} /> */}
+      {/* <Contact props={visible} deleteContact={deleteContact} /> */}
+      <ShowContactList />
     </div>
   );
 };
