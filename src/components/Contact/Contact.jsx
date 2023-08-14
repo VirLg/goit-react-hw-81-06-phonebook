@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ContactsDiv, Button } from './Contacts.styled';
-
+import { myContactSelector } from 'redux/selector';
 const Contact = ({ deleteContact }) => {
-  const visFilter = useSelector(state => state.contactFilter[0]);
-  const visContact = useSelector(state => state.contactsBook);
+  const visFilter = useSelector(myContactSelector).contactFilter[0];
+  const visContact = useSelector(myContactSelector).contactsBook;
 
   let show = [];
 

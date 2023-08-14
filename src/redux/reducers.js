@@ -1,6 +1,7 @@
-import filterSlice from '../redux/sliceFilter';
-import contactSlice from '../redux/slice';
-export const reducer = {
-  filterSlice,
-  contactSlice,
-};
+import { combineReducers } from 'redux';
+import { contactSlice } from './slice';
+import { sortSlice } from './sliceFilter';
+export const reducer = combineReducers({
+  contactsBook: contactSlice.reducer,
+  contactFilter: sortSlice.reducer,
+});

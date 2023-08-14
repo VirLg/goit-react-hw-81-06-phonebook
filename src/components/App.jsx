@@ -5,9 +5,9 @@ import Form from './Form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { add, remove } from '../redux/slice';
 import { filter } from '../redux/sliceFilter';
-
+import { myContactSelector } from 'redux/selector';
 const App = function () {
-  const { contactsBook } = useSelector(state => state);
+  const { contactsBook } = useSelector(myContactSelector);
   const dispatch = useDispatch();
   const addContact = props => {
     const { name, number } = props;
